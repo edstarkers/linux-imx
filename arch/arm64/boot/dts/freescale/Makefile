@@ -66,7 +66,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-ea-ucom-kit_v2.dtb imx8mm-ea-ucom-kit_v2-m4.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mn-evk.dtb imx8mn-evk-rm67191.dtb imx8mn-ddr4-evk.dtb imx8mn-ddr4-evk-ak5558.dtb \
 			  imx8mn-ddr4-evk-rm67191.dtb imx8mn-ddr4-evk-rpmsg.dtb imx8mn-ddr4-evk-usd-wifi.dtb \
 			  imx8mn-evk-ak5558.dtb imx8mn-evk-rpmsg.dtb imx8mn-evk-8mic-revE.dtb
-dtb-$(CONFIG_ARCH_MXC) += imx8mn-ea-ucom-kit_v2.dtb imx8mn-ea-ucom-kit_v2-m4.dtb imx8mn-ea-ucom-kit_v2-ov5640.dtb \
+dtb-$(CONFIG_ARCH_MXC) += imx8mn-rl256.dtb imx8mn-ea-ucom-kit_v2.dtb imx8mn-ea-ucom-kit_v2-m4.dtb imx8mn-ea-ucom-kit_v2-ov5640.dtb \
 			  imx8mn-ea-ucom-kit_v2-usb-host.dtb imx8mn-ea-ucom-kit_v2-1mw.dtb \
 			  imx8mn-ea-ucom-ptp-1mw.dtb imx8mn-ea-ucom-ptp.dtb \
 			  imx8mn-ea-ucom-kit_v3.dtb imx8mn-ea-ucom-kit_v3-m4.dtb imx8mn-ea-ucom-kit_v3-ov5640.dtb \
