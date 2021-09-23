@@ -69,30 +69,73 @@
 
 	};
 
-	sound-wm8731 {
-		compatible = "simple-audio-card";
-		simple-audio-card,name = "wm8731-audio";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,frame-master = <&cpudai>;
-		simple-audio-card,bitclock-master = <&cpudai>;
-		simple-audio-card,widgets =
-			"Line", "Left Line Out Jack",
-			"Line", "Right Line Out Jack";
-		simple-audio-card,routing =
-			"Left Line Out Jack", "LOUT",
-			"Right Line Out Jack", "ROUT";
+	sound-input3 {
+		
+		    compatible = "simple-audio-card";
+            simple-audio-card,format = "i2s";
+            simple-audio-card,name = "SAI3";
+            simple-audio-card,bitclock-master = <&cpudai3>;
+			simple-audio-card,frame-master = <&cpudai3>;
+            simple-audio-card,widgets =
+                    "Microphone", "Microphone Jack";
+            simple-audio-card,routing =
+                    "PDM_DAT", "Microphone Jack";
+            status = "okay";
+            
+            cpudai3: simple-audio-card,cpu {
+                sound-dai = <&sai3>;
+                dai-tdm-slot-num = <2>;
+				dai-tdm-slot-width = <32>;
+            };
+            
+            simple-audio-card,codec {
+                sound-dai = <&sai3_codec>;
+            };
 
-		cpudai: simple-audio-card,cpu {
-			sound-dai = <&sai2>;
-			dai-tdm-slot-num = <2>;
-			dai-tdm-slot-width = <32>;
-		};
-
-		simple-audio-card,codec {
-			sound-dai = <&wm8731>;
-			clocks = <&clk IMX8MN_CLK_SAI2_ROOT>;
-		};
 	};
+	
+	 sai3_codec: adau7002-codec3 {
+	 	  #address-cells = <0>;
+          #size-cells = <0>;
+          #sound-dai-cells = <0>;	
+          compatible = "adi,adau7002";
+	 };  
+	 
+	 
+	 
+	 sound-input5 {
+		
+		    compatible = "simple-audio-card";
+            simple-audio-card,format = "i2s";
+            simple-audio-card,name = "SAI5";
+            simple-audio-card,bitclock-master = <&cpudai5>;
+			simple-audio-card,frame-master = <&cpudai5>;
+            simple-audio-card,widgets =
+                    "Microphone", "Microphone Jack";
+            simple-audio-card,routing =
+                    "PDM_DAT", "Microphone Jack";
+            status = "okay";
+            
+            cpudai5: simple-audio-card,cpu {
+                sound-dai = <&sai5>;
+                dai-tdm-slot-num = <2>;
+				dai-tdm-slot-width = <32>;
+            };
+            
+            simple-audio-card,codec {
+                sound-dai = <&sai5_codec>;
+            };
+
+	};
+	
+	 sai5_codec: adau7002-codec5 {
+	 	  #address-cells = <0>;
+          #size-cells = <0>;
+          #sound-dai-cells = <0>;
+          compatible = "adi,adau7002";
+	 };  
+	 
+	 
 
 };
 
@@ -135,6 +178,23 @@
 				MX8MN_IOMUXC_SAI2_TXC_SAI2_TX_BCLK	0xd6
 				MX8MN_IOMUXC_SAI2_RXD0_SAI2_RX_DATA0	0xd6
 				MX8MN_IOMUXC_SAI2_TXFS_SAI2_TX_SYNC	0xd6
+			>;
+		};
+		
+		pinctrl_sai3: sai3grp {
+			fsl,pins = <
+				MX8MN_IOMUXC_SAI3_RXC_SAI3_RX_BCLK  0xd6
+				MX8MN_IOMUXC_SAI3_RXFS_SAI3_RX_SYNC	0xd6
+				MX8MN_IOMUXC_SAI3_RXD_SAI3_RX_DATA0	0xd6
+			>;
+		};
+
+		pinctrl_sai5: sai5grp {
+			fsl,pins = <
+				MX8MN_IOMUXC_SAI5_MCLK_SAI5_MCLK  0xd6
+				MX8MN_IOMUXC_SAI5_RXFS_SAI5_RX_SYNC	0xd6
+				MX8MN_IOMUXC_SAI5_RXC_SAI5_RX_BCLK	0xd6
+				MX8MN_IOMUXC_SAI5_RXD0_SAI5_RX_DATA0 0xd6
 			>;
 		};
 
@@ -306,16 +366,6 @@
 	};
 };
 
-&i2c1 {
-
-	wm8731: wm8731@1a {
-		#sound-dai-cells = <0>;
-		compatible = "wlf,wm8731";
-		reg = <0x1a>;
-		clocks = <&clk IMX8MN_CLK_SAI2_ROOT>;
-		clock-names = "mclk";
-        };
-};
 
 &i2c2 {
 
@@ -398,6 +448,26 @@
 	assigned-clocks = <&clk IMX8MN_CLK_SAI2>;
 	assigned-clock-parents = <&clk IMX8MN_AUDIO_PLL2_OUT>;
 	assigned-clock-rates = <11289600>;
+	status = "okay";
+};
+
+&sai3 {
+	#sound-dai-cells = <0>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_sai3>;
+	assigned-clocks = <&clk IMX8MN_CLK_SAI3>;
+	assigned-clock-parents = <&clk IMX8MN_AUDIO_PLL2_OUT>;
+	assigned-clock-rates = <12288000>;
+	status = "okay";
+};
+
+&sai5 {
+	#sound-dai-cells = <0>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_sai5>;
+	assigned-clocks = <&clk IMX8MN_CLK_SAI5>;
+	assigned-clock-parents = <&clk IMX8MN_AUDIO_PLL2_OUT>;
+	assigned-clock-rates = <12288000>;
 	status = "okay";
 };
 
