@@ -565,3 +565,7 @@
 	pinctrl-0 = <&pinctrl_pwm1>;
 };
 
+&gpu {
+	status = "disabled";
+};
+
