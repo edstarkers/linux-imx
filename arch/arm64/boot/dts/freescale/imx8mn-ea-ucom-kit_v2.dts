@@ -376,9 +376,9 @@
 	#sound-dai-cells = <0>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_sai5>;
-	assigned-clocks = <&clk IMX8MN_CLK_SAI5>;
-	assigned-clock-parents = <&clk IMX8MN_AUDIO_PLL2_OUT>;
-	assigned-clock-rates = <12288000>;
+    rx,sync-mode = < 1 >;
+    rx,slave_mode; 
+    tx,slave_mode;
 	status = "okay";
 };
 
