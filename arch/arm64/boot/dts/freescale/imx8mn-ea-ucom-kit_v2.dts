@@ -69,33 +69,6 @@
 		};
 
 	};
-	
-
-
-	sound-wm8731 {
-		compatible = "simple-audio-card";
-		simple-audio-card,name = "wm8731-audio";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,frame-master = <&cpudai>;
-		simple-audio-card,bitclock-master = <&cpudai>;
-		simple-audio-card,widgets =
-			"Line", "Left Line Out Jack",
-			"Line", "Right Line Out Jack";
-		simple-audio-card,routing =
-			"Left Line Out Jack", "LOUT",
-			"Right Line Out Jack", "ROUT";
-
-		cpudai: simple-audio-card,cpu {
-			sound-dai = <&sai2>;
-			dai-tdm-slot-num = <2>;
-			dai-tdm-slot-width = <32>;
-		};
-
-		simple-audio-card,codec {
-			sound-dai = <&wm8731>;
-			clocks = <&clk IMX8MN_CLK_SAI2_ROOT>;
-		};
-	};
 
 };
 
@@ -116,16 +89,6 @@
 				MX8MN_IOMUXC_GPIO1_IO08_GPIO1_IO8		0x16
 			>;
 		};
-
-		pinctrl_sai2: sai2grp {
-			fsl,pins = <
-				MX8MN_IOMUXC_SAI2_MCLK_SAI2_MCLK	0xd6
-				MX8MN_IOMUXC_SAI2_TXD0_SAI2_TX_DATA0	0xd6
-				MX8MN_IOMUXC_SAI2_TXC_SAI2_TX_BCLK	0xd6
-				MX8MN_IOMUXC_SAI2_RXD0_SAI2_RX_DATA0	0xd6
-				MX8MN_IOMUXC_SAI2_TXFS_SAI2_TX_SYNC	0xd6
-			>;
-		};
 		
 		
 		pinctrl_sai3: sai3grp {
@@ -134,15 +97,7 @@
 				MX8MN_IOMUXC_SAI3_TXFS_SAI3_TX_SYNC		0xd6
 				MX8MN_IOMUXC_SAI3_TXC_SAI3_TX_BCLK		0xd6
 				MX8MN_IOMUXC_SAI3_TXD_SAI3_TX_DATA0 	0xd6	
-				
-			>;
-		};
-		
-		pinctrl_sai5: sai5grp {
-			fsl,pins = <
-				MX8MN_IOMUXC_SAI5_MCLK_SAI5_MCLK		0xd6
-				MX8MN_IOMUXC_SAI5_RXD2_SAI5_TX_BCLK		0xd6
-				MX8MN_IOMUXC_SAI5_RXD3_SAI5_TX_DATA0 	0xd6	
+				MX8MN_IOMUXC_SAI3_RXD_SAI3_TX_DATA1		0xd6
 			>;
 		};
 
@@ -404,6 +359,16 @@
 	assigned-clocks = <&clk IMX8MN_CLK_SAI2>;
 	assigned-clock-parents = <&clk IMX8MN_AUDIO_PLL2_OUT>;
 	assigned-clock-rates = <12288000>;
+	status = "okay";
+};
+
+&sai3 {
+	#sound-dai-cells = <0>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_sai3>;
+    rx,sync-mode = < 1 >;
+    rx,slave_mode; 
+    tx,slave_mode;
 	status = "okay";
 };
 
